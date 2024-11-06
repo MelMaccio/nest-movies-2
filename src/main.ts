@@ -10,7 +10,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Movies API')
     .setDescription(
-      'To use correctly test this API follow this steps: signup, login, and paste the auth token in the "Authorize" lock bellow.'
+      'To use correctly test this API follow this steps: signup, login, and paste the auth token in the "Authorize" lock bellow. Important: for agile testing purposes the expiration of jwt has been set to 1 minute'
     )
     .setVersion('1.0')
     .addBearerAuth()

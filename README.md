@@ -59,6 +59,8 @@ You need to provide the correct value for the environment variables in the .env 
 
 ## Swagger Documentation
 
+**Note**: For agile testing purposes the expiration time of the JWT Tokens has been set to 1 minute.
+
 http://localhost:3000/api
 
 This documentation provides an interactive way to explore and test all the available endpoints.
