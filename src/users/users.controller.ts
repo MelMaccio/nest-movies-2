@@ -1,17 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { User } from './users.model';
 import { UsersService } from './users.service';
-import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
-
-  /* @Get('profile')
-  @UseGuards(AuthGuard('jwt'))
-  getProfile() {
-    return { message: 'This is a protected route' };
-  } */
 
   @Post()
   create(@Body() userData): Promise<User> {
