@@ -9,9 +9,9 @@ export class UsersService {
         private readonly userModel: typeof User,
       ) {}
     
-      async create(userData): Promise<User> {
-        const user = new User(userData);
-        return await user.save();
+      async create(userData: Partial<User>): Promise<User> {
+        const user = this.userModel.create(userData);
+        return user;
       }
     
       async findAll(): Promise<User[]> {

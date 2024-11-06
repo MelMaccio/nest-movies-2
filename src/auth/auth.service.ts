@@ -2,22 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { User } from 'src/users/users.model';
-import { InjectModel } from '@nestjs/sequelize';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    //@InjectModel(User)
     private readonly usersService: UsersService,
     private jwtService: JwtService
   ) {}
 
-  async signup(username: string, password: string) {
+  async signup(username: string, password: string, isAdmin: boolean) {
     const hashedPassword = await bcrypt.hash(password, 10);
     return this.usersService.create({
       username,
-      password: hashedPassword
+      password: hashedPassword,
+      isAdmin
     });
   }
 
@@ -30,7 +29,7 @@ export class AuthService {
   }
 
   async login(user: User) {
-    const payload = { username: user.username, sub: user.id };
+    const payload = { username: user.username, sub: user.id, isAdmin: user.isAdmin };
     return {
       access_token: this.jwtService.sign(payload),
     };
