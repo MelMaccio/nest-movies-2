@@ -14,6 +14,11 @@ This is a simple CRUD API developed with Nest Js framwork. It implements authent
 
 ---
 
+## Requirements
+
+- Node Js
+- MySql
+
 ## Installation
 
 To get started with this project, follow these steps:
