@@ -3,6 +3,7 @@ import { Movie } from './movies.model';
 import { MoviesService } from './movies.service';
 import { AdminGuard } from 'src/auth/guards/admin.guard';
 import { RegularUserGuard } from 'src/auth/guards/regularuser.guard';
+import { CreateMovieDto } from 'src/common/dtos/create-movie.dto';
 
 @Controller('movies')
 export class MoviesController {
@@ -28,8 +29,8 @@ export class MoviesController {
 
     @UseGuards(AdminGuard)
     @Post()
-    async createMovie(@Body() userData): Promise<Movie> {
-        return this.moviesService.create(userData);
+    async createMovie(@Body() movieData: CreateMovieDto): Promise<Movie> {
+        return this.moviesService.create(movieData);
     }
 
     @UseGuards(AdminGuard)

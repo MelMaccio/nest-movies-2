@@ -3,6 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { firstValueFrom } from 'rxjs';
 import { Movie } from './movies.model';
+import { CreateMovieDto } from 'src/common/dtos/create-movie.dto';
 
 @Injectable()
 export class MoviesService {
@@ -16,7 +17,7 @@ export class MoviesService {
         const response = await firstValueFrom(this.httpService.get('https://swapi.dev/api/films'));
         const moviesRaw = response.data.results;
         const moviesFiltered = moviesRaw.map(movie => ({
-            id: movie.episode_id,
+            //id: movie.episode_id,
             title: movie.title,
             director: movie.director,
             releaseDate: movie.release_date,
@@ -45,7 +46,7 @@ export class MoviesService {
         return movie;
     }
 
-    async create(movie: Movie): Promise<Movie> {
+    async create(movie: CreateMovieDto): Promise<Movie> {
         const result = await this.movieModel.create(movie);
         if (!result) {
             throw new NotFoundException('something went wrong');
