@@ -4,7 +4,6 @@ import { InjectModel } from '@nestjs/sequelize';
 import { firstValueFrom } from 'rxjs';
 import { Movie } from './movies.model';
 import { CreateMovieDto } from 'src/common/dtos/create-movie.dto';
-import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 
 @Injectable()
 export class MoviesService {
