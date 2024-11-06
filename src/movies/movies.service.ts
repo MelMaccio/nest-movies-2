@@ -17,7 +17,6 @@ export class MoviesService {
         const response = await firstValueFrom(this.httpService.get('https://swapi.dev/api/films'));
         const moviesRaw = response.data.results;
         const moviesFiltered = moviesRaw.map(movie => ({
-            //id: movie.episode_id,
             title: movie.title,
             director: movie.director,
             releaseDate: movie.release_date,
@@ -65,7 +64,12 @@ export class MoviesService {
         return updatedMovie;
     }
 
-    async remove(id: number): Promise<number> {
-        return this.movieModel.destroy({ where: { id } });
+    async remove(id: number): Promise<string> {
+        
+        const result = await this.movieModel.destroy({ where: { id } });
+        if(!result){
+            throw new NotFoundException('Something went wrong');
+        }
+        return 'Success! Number of rows affected: ' + result;
     }
 }

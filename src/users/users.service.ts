@@ -13,27 +13,12 @@ export class UsersService {
         const user = this.userModel.create(userData);
         return user;
       }
-    
-      async findAll(): Promise<User[]> {
-        return this.userModel.findAll();
-      }
-    
+
       async findOne(query: number | { where: { username: string } }): Promise<User | null> {
         if (typeof query === 'number') {
           return this.userModel.findOne({ where: { id: query } });
         }
         return this.userModel.findOne(query);
       }
-    
-      async update(id: number, userData): Promise<[number, User[]]> {
-        const [affectedCount, affectedRows] = await this.userModel.update(userData, {
-          where: { id },
-          returning: true, 
-        });
-        return [affectedCount, affectedRows as User[]];
-      }
-    
-      async remove(id: number): Promise<number> {
-        return this.userModel.destroy({ where: { id } });
-      }
+
 }
