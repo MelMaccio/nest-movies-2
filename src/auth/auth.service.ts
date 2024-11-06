@@ -9,7 +9,7 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) { }
 
   async signup(username: string, password: string, isAdmin: boolean) {
     try {
@@ -40,10 +40,14 @@ export class AuthService {
     }
     if (!user) {
       throw new HttpException(
-        'Invalid username or password',
+        'User does not exist',
         HttpStatus.UNAUTHORIZED,
       );
     }
+    throw new HttpException(
+      'Incorrect password',
+      HttpStatus.UNAUTHORIZED,
+    );
   }
 
   async login(user: User) {

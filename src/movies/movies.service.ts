@@ -1,9 +1,10 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { firstValueFrom } from 'rxjs';
 import { Movie } from './movies.model';
 import { CreateMovieDto } from 'src/common/dtos/create-movie.dto';
+import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 
 @Injectable()
 export class MoviesService {
@@ -32,7 +33,13 @@ export class MoviesService {
     async findAll(): Promise<Movie[]> {
         const movies = await this.movieModel.findAll();
         if (!movies) {
-            throw new NotFoundException('Movies not found');
+            throw new NotFoundException('Something went wrong');
+        }
+        if (!movies.length) {
+            throw new HttpException(
+                'There are no movies in the record',
+                HttpStatus.CONFLICT,
+              );
         }
         return movies;
     }
